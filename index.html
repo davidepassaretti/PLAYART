@@ -2,33 +2,41 @@
     <head>
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+        <script>
+            AFRAME.registerComponent('videohandler', {
+                schema: { target: { type: 'selector' } },
+                init: function () {
+                    var marker = this.el;
+                    var video = this.data.target;
+
+                    marker.addEventListener('markerFound', function () {
+                        video.play();
+                    });
+
+                    marker.addEventListener('markerLost', function () {
+                        video.pause();
+                        video.currentTime = 0;
+                    });
+                }
+            });
+        </script>
     </head>
 
     <body style="margin: 0; overflow: hidden;">
-        <a-scene
-            vr-mode-ui="enabled: false"
-            loading-screen="enabled: false;"
-            arjs="sourceType: webcam; debugUIEnabled: false;"
-            id="scene"
-            embedded
-        >
-            <!-- Caricamento video -->
+        <a-scene embedded arjs="sourceType: webcam;">
             <a-assets>
                 <video id="vid1" src="assets/asset.mp4" preload="auto" muted playsinline></video>
                 <video id="vid2" src="assets/asset2.mp4" preload="auto" muted playsinline></video>
             </a-assets>
 
-            <!-- Marker 1 con video -->
-            <a-marker type="pattern" url="assets/marker.patt">
+            <a-marker type="pattern" url="assets/marker.patt" videohandler="target: #vid1">
                 <a-video src="#vid1" scale="1 1 1" position="0 0.3 0" rotation="-90 0 0"></a-video>
             </a-marker>
 
-            <!-- Marker 2 con video -->
-            <a-marker type="pattern" url="assets/marker2.patt">
+            <a-marker type="pattern" url="assets/marker2.patt" videohandler="target: #vid2">
                 <a-video src="#vid2" scale="1 1 1" position="0 0.3 0" rotation="-90 0 0"></a-video>
             </a-marker>
 
-            <!-- Camera -->
             <a-entity camera></a-entity>
         </a-scene>
     </body>
