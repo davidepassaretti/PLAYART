@@ -10,6 +10,9 @@
                     var vid = document.querySelector(this.data.videoId);
                     console.log('Video ID:', this.data.videoId); // Log per controllare che il video ID sia corretto
 
+                    // Pausa il video inizialmente
+                    vid.pause();
+
                     marker.addEventListener('markerFound', function () {
                         console.log('Marker trovato, video in avvio');
                         vid.play();
@@ -33,9 +36,9 @@
         >
             <a-assets>
                 <!-- Caricamento video 1 -->
-                <video id="vid1" src="assets/asset.mp4" preload="auto" loop crossorigin="anonymous" playsinline></video>
+                <video id="vid1" src="assets/asset.mp4" preload="auto" loop crossorigin="anonymous" playsinline muted></video>
                 <!-- Caricamento video 2 -->
-                <video id="vid2" src="assets/asset2.mp4" preload="auto" loop crossorigin="anonymous" playsinline></video>
+                <video id="vid2" src="assets/asset2.mp4" preload="auto" loop crossorigin="anonymous" playsinline muted></video>
             </a-assets>
 
             <!-- Marker per il primo video -->
@@ -44,7 +47,7 @@
                 url="assets/marker.patt"
                 videohandler="videoId: #vid1"
             >
-                <a-video src="#vid1" scale="1 1 1" position="0 0.1 0" rotation="-90 0 0"></a-video>
+                <a-video src="#vid1" scale="1 1 1" position="0 0.1 0" rotation="-90 0 0" material="color: red;"></a-video>
             </a-marker>
 
             <!-- Marker per il secondo video -->
@@ -53,7 +56,10 @@
                 url="assets/marker2.patt"
                 videohandler="videoId: #vid2"
             >
-                <a-video src="#vid2" scale="1 1 1" position="0 0.1 0" rotation="-90 0 0"></a-video>
+                <a-video src="#vid2" scale="1 1 1" position="0 0.1 0" rotation="-90 0 0" material="color: red;"></a-video>
             </a-marker>
 
-            <a-entity camera></a-entity
+            <a-entity camera></a-entity>
+        </a-scene>
+    </body>
+</html>
