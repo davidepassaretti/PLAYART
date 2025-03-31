@@ -9,18 +9,24 @@
             AFRAME.registerComponent('videohandler', {
                 init: function () {
                     var marker = this.el;
-                    this.vid = document.querySelector("#vid");
+                    this.vidElement = document.querySelector("#vid");
+                    this.videoIndex = 0;  // Indice del video attuale
+                    this.videoList = [ 
+                        "assets/video1.mp4",
+                        "assets/video2.mp4",
+                        "assets/video3.mp4"
+                    ]; // Lista di video
 
-                    marker.addEventListener('markerFound', function () {
-                        this.toggle = true;
-                        this.vid.play();
-                    }.bind(this));
+                    marker.addEventListener('markerFound', () => {
+                        this.vidElement.src = this.videoList[this.videoIndex]; // Cambia video
+                        this.vidElement.play();
+                    });
 
-                    marker.addEventListener('markerLost', function () {
-                        this.toggle = false;
-                        this.vid.pause();
-                    }.bind(this));
-                },
+                    marker.addEventListener('markerLost', () => {
+                        this.vidElement.pause();
+                        this.videoIndex = (this.videoIndex + 1) % this.videoList.length; // Cambia video al prossimo
+                    });
+                }
             });
         </script>
     </head>
@@ -37,7 +43,7 @@
             <a-assets>
                 <video
                     id="vid"
-                    src="assets/asset.mp4"
+                    src="assets/video1.mp4"
                     preload="auto"
                     response-type="arraybuffer"
                     loop
