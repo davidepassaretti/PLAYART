@@ -29,22 +29,10 @@
             embedded
         >
             <a-assets>
-                <!-- Video 1 -->
-                <video id="vid1" src="assets/asset.mp4" preload="auto" loop crossorigin="anonymous" playsinline></video>
-                <!-- Video 2 -->
                 <video id="vid2" src="assets/asset2.mp4" preload="auto" loop crossorigin="anonymous" playsinline></video>
             </a-assets>
 
-            <!-- Marker per il primo video -->
-            <a-marker
-                type="pattern"
-                url="assets/marker.patt"
-                videohandler="videoId: #vid1"
-            >
-                <a-video src="#vid1" scale="1 1 1" position="0 0.1 0" rotation="-90 0 0"></a-video>
-            </a-marker>
-
-            <!-- Marker per il secondo video -->
+            <!-- Solo il secondo marker per il secondo video -->
             <a-marker
                 type="pattern"
                 url="assets/marker2.patt"
