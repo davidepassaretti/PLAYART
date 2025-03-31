@@ -8,16 +8,17 @@
                 init: function () {
                     var marker = this.el;
                     var vid = document.querySelector(this.data.videoId);
+                    // Pausa il video inizialmente
                     vid.pause();
 
                     marker.addEventListener('markerFound', function () {
                         console.log('Marker trovato, video in avvio');
-                        vid.play();
+                        vid.play();  // Avvia il video
                     });
 
                     marker.addEventListener('markerLost', function () {
                         console.log('Marker perso, video in pausa');
-                        vid.pause();
+                        vid.pause();  // Pausa il video
                     });
                 }
             });
@@ -32,11 +33,13 @@
             embedded
         >
             <a-assets>
+                <!-- Caricamento del primo video -->
                 <video id="vid1" src="assets/asset.mp4" preload="auto" muted playsinline></video>
+                <!-- Caricamento del secondo video -->
                 <video id="vid2" src="assets/asset2.mp4" preload="auto" muted playsinline></video>
-                <video id="vid3" src="assets/asset3.mp4" preload="auto" muted playsinline></video>
             </a-assets>
 
+            <!-- Marker per il primo video -->
             <a-marker
                 type="pattern"
                 url="assets/marker.patt"
@@ -45,6 +48,7 @@
                 <a-video src="#vid1" scale="1 1 1" position="0 0.3 0" rotation="-90 0 0"></a-video>
             </a-marker>
 
+            <!-- Marker per il secondo video -->
             <a-marker
                 type="pattern"
                 url="assets/marker2.patt"
@@ -52,15 +56,7 @@
             >
                 <a-video src="#vid2" scale="1 1 1" position="0 0.3 0" rotation="-90 0 0"></a-video>
             </a-marker>
-            
-            <a-marker
-                type="pattern"
-                url="assets/marker3.patt"
-                videohandler="videoId: #vid3"
-            >
-                <a-video src="#vid3" scale="1 1 1" position="0 0.3 0" rotation="-90 0 0"></a-video>
-            </a-marker>
-            
+
             <a-entity camera></a-entity>
         </a-scene>
     </body>
