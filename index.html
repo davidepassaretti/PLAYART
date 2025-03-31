@@ -3,24 +3,24 @@
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
         <script>
+            // Component che gestisce l'evento di avvio e pausa dei video
             AFRAME.registerComponent('videohandler', {
                 schema: { videoId: { type: 'string' } },
                 init: function () {
                     var marker = this.el;
                     var vid = document.querySelector(this.data.videoId);
-                    console.log('Video ID:', this.data.videoId); // Log per controllare che il video ID sia corretto
-
+                    
                     // Pausa il video inizialmente
                     vid.pause();
 
                     marker.addEventListener('markerFound', function () {
                         console.log('Marker trovato, video in avvio');
-                        vid.play();
+                        vid.play();  // Avvia il video quando il marker viene trovato
                     });
 
                     marker.addEventListener('markerLost', function () {
                         console.log('Marker perso, video in pausa');
-                        vid.pause();
+                        vid.pause();  // Pausa il video quando il marker viene perso
                     });
                 }
             });
@@ -34,31 +34,33 @@
             arjs="sourceType: webcam; debugUIEnabled: false;"
             embedded
         >
+            <!-- Caricamento degli asset (video) -->
             <a-assets>
-                <!-- Caricamento video 1 -->
-                <video id="vid1" src="assets/asset.mp4" preload="auto" loop crossorigin="anonymous" playsinline muted></video>
-                <!-- Caricamento video 2 -->
-                <video id="vid2" src="assets/asset2.mp4" preload="auto" loop crossorigin="anonymous" playsinline muted></video>
+                <!-- Caricamento del primo video -->
+                <video id="vid1" src="assets/asset.mp4" preload="auto" loop muted playsinline></video>
+                <!-- Caricamento del secondo video -->
+                <video id="vid2" src="assets/asset2.mp4" preload="auto" loop muted playsinline></video>
             </a-assets>
 
             <!-- Marker per il primo video -->
             <a-marker
                 type="pattern"
                 url="assets/marker.patt"
-                videohandler="videoId: #vid1"
+                videohandler="videoId: #vid1"  <!-- Associa il video 1 -->
             >
-                <a-video src="#vid1" scale="1 1 1" position="0 0.1 0" rotation="-90 0 0" material="color: red;"></a-video>
+                <a-video src="#vid1" scale="1 1 1" position="0 0.1 0" rotation="-90 0 0"></a-video>
             </a-marker>
 
             <!-- Marker per il secondo video -->
             <a-marker
                 type="pattern"
                 url="assets/marker2.patt"
-                videohandler="videoId: #vid2"
+                videohandler="videoId: #vid2"  <!-- Associa il video 2 -->
             >
-                <a-video src="#vid2" scale="1 1 1" position="0 0.1 0" rotation="-90 0 0" material="color: red;"></a-video>
+                <a-video src="#vid2" scale="1 1 1" position="0 0.1 0" rotation="-90 0 0"></a-video>
             </a-marker>
 
+            <!-- Aggiungi la fotocamera -->
             <a-entity camera></a-entity>
         </a-scene>
     </body>
