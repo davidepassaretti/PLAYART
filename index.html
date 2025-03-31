@@ -37,6 +37,8 @@
                 <video id="vid1" src="assets/asset.mp4" preload="auto" muted playsinline></video>
                 <!-- Caricamento del secondo video -->
                 <video id="vid2" src="assets/asset2.mp4" preload="auto" muted playsinline></video>
+                <!-- Caricamento del terzo video -->
+                <video id="vid3" src="assets/asset3.mp4" preload="auto" muted playsinline></video>
             </a-assets>
 
             <!-- Marker per il primo video -->
@@ -57,6 +59,15 @@
                 <a-video src="#vid2" scale="1 1 1" position="0 0.3 0" rotation="-90 0 0"></a-video>
             </a-marker>
 
+             <!-- Marker per il terzo video -->
+            <a-marker
+                type="pattern"
+                url="assets/marker3.patt"
+                videohandler="videoId: #vid2"
+            >
+                <a-video src="#vid3" scale="1 1 1" position="0 0.3 0" rotation="-90 0 0"></a-video>
+          
+            </a-marker>
             <a-entity camera></a-entity>
         </a-scene>
     </body>
